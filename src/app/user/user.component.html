@@ -1,0 +1,26 @@
+<div class = "container">
+        <div class = "panel-heading">
+            <h1>Hello {{user.name}}</h1>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <h3>Contacts</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table" *ngIf="user.contacts && user.contacts.length">
+                    <thead>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let contact of user.contacts">
+                            <td>{{contact.name}}</td>
+                            <td>{{contact.phone}}</td>
+                            <td>{{contact.email}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
