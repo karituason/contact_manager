@@ -1,10 +1,10 @@
 [
-{ "username":"user1", "password":"12345678", "name":"Name", "contacts":[]},
-{ "username":"user2", "password":"123456789", "name":"Name", "contacts":[{"name":"u2", "phone":"1234567890", "email":"u@mail.com"}]},
-{ "username":"user3", "password":"12345678", "name":"Name", "contacts":[]},
-{ "username":"user4", "password":"12345678", "name":"Name", "contacts":[]},
-{ "username":"user5", "password":"12345678", "name":"Name", "contacts":[]},
-{ "username":"user6", "password":"12345678", "name":"Name", "contacts":[]},
-{ "username":"user7", "password":"12345678", "name":"Name", "contacts":[]},
-{ "username":"user8", "password":"123456789", "name":"Name", "contacts":[]}
+{ "username":"user1", "password":"12345678", "role":"user", "name":"Name", "contacts":[]},
+{ "username":"user2", "password":"123456789", "role":"user", "name":"Name", "contacts":[{"name":"u2", "phone":"1234567890", "email":"u@mail.com"}]},
+{ "username":"user3", "password":"12345678", "role":"user", "name":"Name", "contacts":[]},
+{ "username":"user4", "password":"12345678", "role":"user", "name":"Name", "contacts":[]},
+{ "username":"user5", "password":"12345678", "role":"user", "name":"Name", "contacts":[]},
+{ "username":"user6", "password":"12345678", "role":"user", "name":"Name", "contacts":[]},
+{ "username":"user7", "password":"12345678", "role":"user", "name":"Name", "contacts":[]},
+{ "username":"user8", "password":"123456789", "role":"user", "name":"Name", "contacts":[]}
 ]

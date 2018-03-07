@@ -1,10 +1,18 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="container">
-  <div class="panel panel-primary">
-      <h1>Contact Manager</h1>
-  </div>
-  <div class="panel-body">
-    <cm-user></cm-user>
+<div>
+  <nav class='navbar navbar-inverse'>
+      <div class="container-fluid">
+          <a class="navbar-brand">Angular</a>
+          <ul class="nav navbar-nav">
+              <li><a [routerLink]="['/login']">Login</a></li>
+              <li><a [routerLink]="['/admin']">Admin</a></li>
+              <li><a [routerLink]="['/user']">User</a></li>
+              <li><a [routerLink]="['/user-detail']">User-Detail</a></li>
+              <li><a [routerLink]="['/contact-detail']">Contact-Detail</a></li>         
+          </ul>
+      </div>
+  </nav>
+  <div class="container">
+      <router-outlet></router-outlet>
   </div>
 </div>
-
