@@ -6,6 +6,9 @@
 /tmp
 /out-tsc
 
+#server tests
+/server/test
+
 # dependencies
 /node_modules
 

@@ -3,20 +3,22 @@
         <h1>Login</h1>
     </div>
     <div class="panel-body">
-        <form #form="ngForm">
+        <form #form="ngForm" (submit)="login(form)">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" placeholder="username"
-                    ngModel
+                    [(ngModel)]="user.username"
                     name="username" id="username"/>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="text" placeholder="password"
-                    ngModel
+                    [(ngModel)]="user.password"
                     name="password" id="password"/>
             </div>
-            <button class="btn btn-success" type="submit">Submit</button>
+            <button class="btn btn-success" type="submit">Login</button>
         </form>
+        Angular:{{form.value|json}} <br/>
+        Model:{{user|json}}
     </div>
 </div>

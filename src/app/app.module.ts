@@ -7,12 +7,13 @@ import {RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
-import { UserDetailComponent } from './user_detail/user-detail.component';
 import { APIService } from './service/api.service';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { NotFoundComponent } from './shared/notFound.component';
+import { AdminModule } from './admin/admin.module';
+import { Httpprovider } from './service/httpprovider.service';
+import { Userdetails } from './service/userdetails';
 
 
 
@@ -20,9 +21,7 @@ import { NotFoundComponent } from './shared/notFound.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminComponent,
     UserComponent,
-    UserDetailComponent,
     ContactDetailComponent,
     NotFoundComponent
   ],
@@ -30,18 +29,17 @@ import { NotFoundComponent } from './shared/notFound.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    AdminModule,
     RouterModule.forRoot([
       {path:'login',component:LoginComponent},
-      {path:'admin', component:AdminComponent},
       {path:'user', component:UserComponent},
-      {path:'user-detail', component:UserDetailComponent},
       {path:'contact-detail', component:ContactDetailComponent},
       {path:'', redirectTo:'login',pathMatch:'full'},
       {path:'**', component:NotFoundComponent}
     ])
   ],
   providers: [
-    APIService
+    APIService,Httpprovider, Userdetails
   ],
   bootstrap: [AppComponent]
 })
