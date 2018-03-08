@@ -1,7 +1,40 @@
 <div class = "container">
-    <div class = "panel-heading">
-        <h1>Contact Detail</h1>
+        <div class = "panel-heading">
+            <h1>Contact Detail</h1>
+        </div>
+        <div class="panel-body">
+            <div class="row top-buffer">
+                    <div class="col-md-1">Firstname:</div>
+                    <div class="col-md-2">{{contact.firstname}}</div>
+            </div>
+            <div class="row top-buffer">
+                    <div class="col-md-1">Lastname:</div>
+                    <div class="col-md-2">{{contact.lastname}}</div>
+            </div>
+            <div class="row top-buffer">
+                    <div class="col-md-1">Phone:</div>
+                    <div class="col-md-2">{{contact.phone}}</div>
+            </div>
+            <div class="row top-buffer">
+                    <div class="col-md-1">Email:</div>
+                    <div class="col-md-2">{{contact.email}}</div>
+            </div>
+            <div class="row top-buffer">
+                    <div class="col-md-1">
+                        <button class="btn btn-success" (click)="editUser()">
+                            Edit
+                        </button>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-success" (click)="deleteUser()">
+                            Delete
+                        </button>
+                    </div>
+            </div>
+            <div class="row top-buffer pull-right" >
+                    <button class="btn btn-success" (click)="back()">
+                        <<Back
+                    </button>
+            </div>
+        </div>
     </div>
-    <div class="panel-body">
-    </div>
-</div>

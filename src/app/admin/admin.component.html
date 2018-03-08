@@ -1,5 +1,6 @@
 <div class = "container">
     <div class = "panel-heading">
+            <button type="submit" class ="btn btn-success" (click)="logout()">Logout</button>
         <h1>Hello Admin</h1>
     </div>
     <div class="panel-body">
@@ -10,9 +11,8 @@
             <table class="table" *ngIf="users && users.length">
                 <thead>
                     <th>Username</th>
-                    <th>Password</th>
-                    <th>Role</th>
-                    <th>Name</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                     <th>Number of Contacts</th>
                 </thead>
                 <tbody>
@@ -20,10 +20,9 @@
                         <td><a [routerLink]= "['/admin/user-detail']"
                             [queryParams] = "{username:user.username}"
                             >{{user.username}}</a></td>
-                        <td>{{user.password}}</td>
-                        <td>{{user.role}}</td>
-                        <td>{{user.name}}</td>
-                        <td>{{user.contacts.length}}</td>
+                        <td>{{user.firstname}}</td>
+                        <td>{{user.lastname}}</td>
+                        <td>{{user.numContacts}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -37,7 +37,7 @@ export class LoginComponent {
                 if (vari._userdetails.getUserType() === 'admin'){
                   vari._router.navigate(['/admin']);
                 } else if (vari._userdetails.getUserType() === 'user'){
-                  vari._router.navigate(['/users']);
+                  vari._router.navigate(['/user']);
                 }
               }
         })

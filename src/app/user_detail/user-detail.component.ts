@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {APIService} from '../service/api.service'
 import { User } from '../models/user.model';
 import { Contact } from '../models/contact.model';
+import { Httpprovider } from '../service/httpprovider.service';
+import { Userdetails } from '../service/userdetails';
 
 @Component({
     selector:'cm-user-detail',
@@ -11,22 +13,21 @@ import { Contact } from '../models/contact.model';
 })
 
 export class UserDetailComponent implements OnInit{
-    user:User;
+    public user: any = {username:"",
+                password:"",
+                userType:"",
+                firstname:"",
+                lastname:"",
+                numContacts:0
+            };
     username:string;
 
-    constructor(private _apiService:APIService,private _route:ActivatedRoute, private _router:Router){
+    constructor(private _httpprovider:Httpprovider, private _userdetails:Userdetails,private _route:ActivatedRoute, private _router:Router){
 
     }
     
     ngOnInit():void{
-
-        this._route
-            .queryParams
-            .subscribe(params=>{
-                this.username = params['username']
-            })
-        console.log(this.username)
-        this.user = this._apiService.findUser(this.username);
+        
     }
 
 }

@@ -6,6 +6,11 @@ import {Component} from '@angular/core';
 })
 
 export class ContactDetailComponent{
-    
+    contact:any = {
+        firstname: "holder",
+        lastname: "holder",
+        phone: 1234567890,
+        email: "holder@hold.hol"
+    }
 }
 

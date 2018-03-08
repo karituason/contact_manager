@@ -8,6 +8,6 @@ import { Contact } from '../models/contact.model';
 })
 
 export class UserComponent{
-    user:User = new User("user","password","user","name",[new Contact("name", 1234567890, "s@s.com")] );
-    contacts:Contact[] = this.user.contacts;
+    user:User = new User("user","fn", "ln", 0 );
+    contacts:Contact[];
 }
