@@ -72,22 +72,88 @@ function userExists(username){
     )
 }
 
-exports.createUser = function(req, res){
-    if(!userExists(req.body.username)){
-        users.create({
-            username: req.body.username,
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            numContacts: req.body.numContacts
+function createUserDetail(data){
+    users.create({
+            username: data.username,
+            firstname: data.firstname,
+            lastname: data.lastname,
+            numContacts: 0
         },
             function(err, docs){
-                if (err) {return err}
                 if (docs){
-                    res.json(docs);
+                    return true;
                 }
+                return false;
             }
-        )
+        );
+}
+
+function createUserLogin(data){
+    userLogin.create({
+        username: data.username,
+        password: data.password,
+        userType: "user"
+    }, function(err, docs){
+        if (docs){
+            return true;
+        }
+        return false;
+    })
+}
+
+exports.createUser = function(req, res){
+    if(!userExists(req.body.username) && createUserDetail({
+            username: req.body.username,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname
+        }) && createUserLogin({
+            username: req.body.username,
+            password: req.body.password,
+        })){
+        res.json({result: true});
     } else {
         res.json({result: false});
     }
 }
+
+function updateUserLogin(data){
+    return false;
+}
+
+function updateUserDetails(data){
+    return false;
+}
+exports.updateUser = function(req, res){
+    if (userExists(req.body.username) && updateUserLogin() && updateUserDetails){
+        //update
+        res.json({result: false});
+    } else {
+        //send not update message
+        res.json({result: false});
+    }
+}
+
+exports.getContacts = function(req,res){
+    contact.find({username:req.body.username},function(err,docs){
+        if (err){return err;}
+        if (docs){
+            res.json(docs);
+        }
+    })
+}
+
+exports.getContact = function(req,res){
+    contact.findOne({
+        username: req.body.username,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        phone: req.body.phone,
+        email: req.body.email
+    }, function(err, docs){
+        if (err){return err;}
+        if (docs){
+            res.json(docs);
+        }
+    })
+}
+

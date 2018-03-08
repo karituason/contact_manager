@@ -6,3 +6,30 @@ import { NgForm } from '@angular/forms';
 import {Httpprovider} from '../service/httpprovider.service';
 import { Userdetails } from '../service/userdetails';
 
+@Component({
+
+})
+
+export class UserFormComponent implements OnInit{
+    user:any = {
+        username:"",
+        password:"",
+        firstname:"",
+        lastname:"",
+        numContacts:0,
+        update:"false"
+    }
+
+    ngOnInit(){
+        
+    }
+
+    createUser(){
+
+    }
+
+    updateUser(){
+        
+    }
+
+}
