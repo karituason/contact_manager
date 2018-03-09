@@ -23,11 +23,15 @@ export class UserDetailComponent implements OnInit{
     username:string;
 
     constructor(private _httpprovider:Httpprovider, private _userdetails:Userdetails,private _route:ActivatedRoute, private _router:Router){
-
+        
     }
     
     ngOnInit():void{
-        
+        if(!this._userdetails.isLoggedIn()){
+            this._router.navigate(['/login']);
+        } else if(this._userdetails.getUserType() === "user"){
+            this._router.navigate(['/user']);
+        } 
     }
 
 }

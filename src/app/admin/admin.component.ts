@@ -33,12 +33,24 @@ export class AdminComponent implements OnInit{
                     this.errorMessage=<any>error;
                 }
             );
-            console.log(this.users);
         }
     }
 
     logout():void{
         this._router.navigate(['login']);
+    }
+
+    createUser():void{
+        //goes to form
+        console.log(this._userdetail)
+    }
+
+    deleteUser():void{
+
+    }
+
+    updateUser():void{
+        //goes to form
     }
     
 }

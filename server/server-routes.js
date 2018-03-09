@@ -18,6 +18,17 @@ app.route('/login').post(db.login);
 
 //Admin
 app.route('/admin/users').get(db.getUsers);
+app.route('/admin/user').get(db.getUser);
+app.route('/admin/users/add').post(db.createUser);
+app.route('/admin/users/update').post(db.updateUser);
+app.route('/admin/users/delete').get(db.deleteUser);
+
+//User
+app.route('/user/contacts').get(db.getContacts);
+app.route('/user/contact').get(db.getContact);
+app.route('/user/contact/add').post(db.createContact);
+app.route('/user/contact/update').post(db.updateContact);
+app.route('/user/contact/delete').post(db.deleteContact);
 
 app.route('/testroute/:username')
     .get(function(req, res) {

@@ -39,8 +39,7 @@ exports.login = function(req, res){
         function(err,docs){
             if (err) {return err;}
             if ((docs)){
-                
-                res.json(docs);
+               return res.json(docs);
             }
         });
 };
@@ -53,10 +52,19 @@ exports.getUsers = function(req, res){
         function(err,docs){
             if (err) {return err;}
             if ((docs)){
-                res.json(docs);
+                return res.json(docs);
             }
     });
 };
+
+exports.getUser = function(req, res){
+    users.findOne({username: req.body.username}, function (err, docs){
+        if (err) {return err}
+        if (docs) {
+            return res.json(docs);
+        }
+    })
+}
 
 function userExists(username){
     users.findOne(
@@ -110,26 +118,37 @@ exports.createUser = function(req, res){
             username: req.body.username,
             password: req.body.password,
         })){
-        res.json({result: true});
+            return res.json({result: true});
     } else {
-        res.json({result: false});
+        return res.json({result: false});
     }
 }
 
 function updateUserLogin(data){
+    userLogin.update({username:data.username}, {$set:{
+        password: data.password
+    }}, function(err,docs){
+        if (docs){
+            return true;
+        }
+    })
     return false;
 }
 
 function updateUserDetails(data){
+    users.update({username:data.username}, {$set:{
+        firstname: data.firstname,
+        lastname: data.lastname
+    }})
     return false;
 }
 exports.updateUser = function(req, res){
     if (userExists(req.body.username) && updateUserLogin() && updateUserDetails){
         //update
-        res.json({result: false});
+        return res.json({result: false});
     } else {
         //send not update message
-        res.json({result: false});
+        return res.json({result: false});
     }
 }
 
@@ -137,7 +156,7 @@ exports.getContacts = function(req,res){
     contact.find({username:req.body.username},function(err,docs){
         if (err){return err;}
         if (docs){
-            res.json(docs);
+            return res.json(docs);
         }
     })
 }
@@ -152,8 +171,72 @@ exports.getContact = function(req,res){
     }, function(err, docs){
         if (err){return err;}
         if (docs){
-            res.json(docs);
+            return res.json(docs);
         }
     })
 }
 
+exports.createContact = function(req,res){
+    contact.create({
+        username: req.body.username,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        phone: req.body.phone,
+        email: req.body.email
+    }, function(err, docs){
+        if (err){return err;}
+        if (docs){
+            users.update({username: req.body.username}, {$set:{
+                numContacts: req.body.numContacts
+            }}, function(err, docs){});
+            return res.json(docs);
+        }
+    })
+}
+
+exports.updateContact = function(req, res){
+    contact.update({username: req.body.username}, {$set:{
+        firstname:req.body.firstname,
+        lastname:req.body.lastname,
+        phone: req.body.phone,
+        email: req.body.email
+    }}, function(err, docs){
+        if (err) {return err}
+        if (docs){
+            return res.json(docs);
+        }
+    })
+}
+
+function deleteUserLogin(user){
+    userLogin.deleteMany({username: user}, function(err, docs){});
+}
+
+function deleteUserDetail(username){
+    users.deleteMany({username: user}, function(err, docs){});
+}
+
+function deleteUserContacts(username){
+    contact.deleteMany({username: user}, function(err, docs){});
+}
+
+exports.deleteUser= function(req,res){
+    deleteUserLogin(req.body.username);
+    deleteUserDetail(req.body.username);
+    deleteUserContacts(req.body.username);
+}
+
+exports.deleteContact = function(req,res){
+    contact.deleteOne({
+        username: req.body.username,
+        firstname:req.body.firstname,
+        lastname:req.body.lastname,
+        phone: req.body.phone,
+        email: req.body.email
+    }, function (err, docs){
+        if (err){return err}
+        if (docs){
+            res.json(docs);
+        }
+    })
+}
