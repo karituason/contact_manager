@@ -57,8 +57,17 @@ exports.getUsers = function(req, res){
     });
 };
 
-exports.getUser = function(req, res){
+exports.getUserDetail= function(req, res){
     users.findOne({username: req.body.username}, function (err, docs){
+        if (err) {return err}
+        if (docs) {
+            return res.json(docs);
+        }
+    })
+}
+
+exports.getUserLoginDetail = function(req, res){
+    userLogin.findOne({username: req.body.username}, function (err, docs){
         if (err) {return err}
         if (docs) {
             return res.json(docs);
@@ -153,9 +162,11 @@ exports.updateUser = function(req, res){
 }
 
 exports.getContacts = function(req,res){
-    contact.find({username:req.body.username},function(err,docs){
+    contact.find({username:req.body.username},'firstname lastname phone email',function(err,docs){
+        console.log(req.body.username);
         if (err){return err;}
         if (docs){
+            console.log(docs);
             return res.json(docs);
         }
     })
@@ -236,7 +247,12 @@ exports.deleteContact = function(req,res){
     }, function (err, docs){
         if (err){return err}
         if (docs){
+            users.update({username:req.body.username}, 
+                {$set:{numContacts:req.body.numContacts}},
+                function (err, docs){}
+            )
             res.json(docs);
+            
         }
     })
 }

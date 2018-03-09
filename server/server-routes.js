@@ -18,14 +18,15 @@ app.route('/login').post(db.login);
 
 //Admin
 app.route('/admin/users').get(db.getUsers);
-app.route('/admin/user').get(db.getUser);
+app.route('/admin/userdetail').post(db.getUserDetail);
+app.route('/admin/getUserLogin').post(db.getUserLoginDetail)
 app.route('/admin/users/add').post(db.createUser);
 app.route('/admin/users/update').post(db.updateUser);
-app.route('/admin/users/delete').get(db.deleteUser);
+app.route('/admin/users/delete').post(db.deleteUser);
 
 //User
-app.route('/user/contacts').get(db.getContacts);
-app.route('/user/contact').get(db.getContact);
+app.route('/user/contacts').post(db.getContacts);
+app.route('/user/contact').post(db.getContact);
 app.route('/user/contact/add').post(db.createContact);
 app.route('/user/contact/update').post(db.updateContact);
 app.route('/user/contact/delete').post(db.deleteContact);

@@ -5,6 +5,7 @@ import {CommonModule} from '@angular/common';
 
 import { AdminComponent } from './admin.component';
 import { UserDetailComponent } from '../user_detail/user-detail.component';
+import { UserFormComponent } from './user-form.component';
 
 @NgModule({
     imports:[
@@ -12,12 +13,14 @@ import { UserDetailComponent } from '../user_detail/user-detail.component';
         CommonModule,
         RouterModule.forChild([
             {path:'admin', component:AdminComponent},
-            {path:'admin/user-detail',component:UserDetailComponent}
+            {path:'admin/user-detail',component:UserDetailComponent},
+            {path:'admin/user-form',component:UserFormComponent}
         ])
     ],
     declarations:[
         AdminComponent,
-        UserDetailComponent
+        UserDetailComponent,
+        UserFormComponent
     ],
     providers:[]
 })

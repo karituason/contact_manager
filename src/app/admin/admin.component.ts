@@ -4,7 +4,7 @@ import { Contact } from '../models/contact.model';
 import {APIService} from '../service/api.service';
 import {Httpprovider} from '../service/httpprovider.service';
 import { Userdetails } from '../service/userdetails';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, Params } from '@angular/router';
 
 @Component({
     selector:'cm-admin',
@@ -41,16 +41,16 @@ export class AdminComponent implements OnInit{
     }
 
     createUser():void{
-        //goes to form
+        this._router.navigate(['/admin/user-form'],{queryParams: {update:false}});
         console.log(this._userdetail)
     }
 
-    deleteUser():void{
-
+    deleteUser(username:string):void{
+        this._httpprovider.httpReq('http://localhost:9001/admin/users/delete', 'POST', {username: username}, null);
     }
 
-    updateUser():void{
-        //goes to form
+    updateUser(username:string):void{
+        this._router.navigate(['/admin/user-form'],{queryParams: {update:true, username:username}});
     }
     
 }

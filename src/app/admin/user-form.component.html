@@ -1,0 +1,37 @@
+<div class = "container">
+    <div class = "panel">
+        <h1>{{heading}}</h1>
+    </div>
+    <div class="panel-body">
+        <form #form="ngForm" (submit)="submit(form)">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input *ngIf="!update" type="text" placeholder="username"
+                    [(ngModel)]="user.username"
+                    name="username" id="username"/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" placeholder="password"
+                    [(ngModel)]="user.password"
+                    name="password" id="password"/>
+            </div>
+            <div class="form-group">
+                <label for="firstname">First name:</label>
+                <input type="text" placeholder="firstname"
+                    [(ngModel)]="user.firstname"
+                    name="firstname" id="firstname"/>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Last name:</label>
+                <input type="text" placeholder="lastname"
+                    [(ngModel)]="user.lastname"
+                    name="lastname" id="lastname"/>
+            </div>
+            <div>
+                <button class="btn btn-success" type="submit">Cancel</button>
+                <button class="btn btn-success" type="submit">{{btn_name}}</button>
+            </div>
+        </form>
+    </div>
+</div>

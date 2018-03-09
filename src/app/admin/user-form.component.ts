@@ -7,6 +7,8 @@ import {Httpprovider} from '../service/httpprovider.service';
 import { Userdetails } from '../service/userdetails';
 
 @Component({
+    selector:'cm-user-form',
+    templateUrl: './user-form.component.html'
 
 })
 
@@ -16,11 +18,27 @@ export class UserFormComponent implements OnInit{
         password:"",
         firstname:"",
         lastname:"",
-        numContacts:0,
-        update:"false"
+        numContacts:0
+    }
+    update:boolean=true;
+    btn_name:string;
+    heading:string = "User"
+
+    constructor(private _httpprovider:Httpprovider, private _userdetails:Userdetails, private _router: Router){
+
     }
 
     ngOnInit(){
+        if (this.update){
+            this.heading = "Update User";
+            this.btn_name = "Save";
+        } else{
+            this.heading = "Create User";
+            this.btn_name = "Create";
+        }
+    }
+
+    cancel(){
         
     }
 
