@@ -61,7 +61,11 @@ exports.getUserDetail= function(req, res){
     users.findOne({username: req.body.username}, function (err, docs){
         if (err) {return err}
         if (docs) {
+            console.log(docs);
             return res.json(docs);
+
+        } else {
+            return res.json(null);
         }
     })
 }
@@ -90,6 +94,7 @@ function userExists(username){
 }
 
 function createUserDetail(data){
+    console.log("detail create")
     users.create({
             username: data.username,
             firstname: data.firstname,
@@ -98,67 +103,92 @@ function createUserDetail(data){
         },
             function(err, docs){
                 if (docs){
-                    return true;
+                    console.log("here")
+                    console.log(docs)
+                } if (err){
+                    console.log("here")
                 }
-                return false;
+                console.log("out of if")
             }
         );
 }
 
 function createUserLogin(data){
+    console.log("login create");
     userLogin.create({
         username: data.username,
         password: data.password,
         userType: "user"
     }, function(err, docs){
         if (docs){
-            return true;
         }
-        return false;
     })
 }
 
 exports.createUser = function(req, res){
-    if(!userExists(req.body.username) && createUserDetail({
+    console.log("in create user")
+    
+    console.log("detail create")
+    users.create({
+            username: req.body.username,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            numContacts: 0
+        },
+            function(err, docs){
+                if (docs){
+                    console.log("user detail created")
+                    userLogin.create({
+                        username: req.body.username,
+                        password: req.body.password,
+                        userType: "user"
+                    }, function(err, docs){
+                        if (docs){
+                            return res.json(true);
+                        }
+                        else{
+                            deleteUserLogin(req.body.username);
+                            deleteUserDetail(req.body.username);
+                            return res.json(false);
+                        }
+                    })
+                } if (err){
+                    console.log("here")
+                    return res.json(false);
+                }
+                console.log("out of if")
+            }
+        );
+
+    /*createUserDetail({
             username: req.body.username,
             firstname: req.body.firstname,
             lastname: req.body.lastname
-        }) && createUserLogin({
+        }) 
+    createUserLogin({
             username: req.body.username,
             password: req.body.password,
-        })){
+        })
             return res.json({result: true});
     } else {
+        deleteUserLogin(req.body.username);
+        deleteUserDetail(req.body.username);
         return res.json({result: false});
-    }
+
+    }*/
 }
 
-function updateUserLogin(data){
-    userLogin.update({username:data.username}, {$set:{
-        password: data.password
-    }}, function(err,docs){
-        if (docs){
-            return true;
-        }
-    })
-    return false;
-}
-
-function updateUserDetails(data){
-    users.update({username:data.username}, {$set:{
-        firstname: data.firstname,
-        lastname: data.lastname
-    }})
-    return false;
-}
 exports.updateUser = function(req, res){
-    if (userExists(req.body.username) && updateUserLogin() && updateUserDetails){
-        //update
-        return res.json({result: false});
-    } else {
-        //send not update message
-        return res.json({result: false});
-    }
+    userLogin.update({username:req.body.username}, {$set:{
+        password: req.body.password
+    }}, function(err,docs){
+    })
+    users.update({username:req.body.username}, {$set:{
+        firstname: req.body.firstname,
+        lastname: req.body.lastname
+    }}, function(err, docs){
+    })
+    return res.json(true);
 }
 
 exports.getContacts = function(req,res){
@@ -220,21 +250,31 @@ exports.updateContact = function(req, res){
 }
 
 function deleteUserLogin(user){
-    userLogin.deleteMany({username: user}, function(err, docs){});
+    console.log("in delete user login")
+    userLogin.deleteMany({username: user}, function(err, docs){
+        if (docs){
+            console.log("deleted");
+        }
+    });
 }
 
 function deleteUserDetail(username){
-    users.deleteMany({username: user}, function(err, docs){});
+    console.log("in delete user detail")
+    users.deleteMany({username: username}, function(err, docs){});
 }
 
 function deleteUserContacts(username){
-    contact.deleteMany({username: user}, function(err, docs){});
+    console.log("in delete user contacts")
+    contact.deleteMany({username: username}, function(err, docs){});
 }
 
 exports.deleteUser= function(req,res){
+    console.log("in delete user")
     deleteUserLogin(req.body.username);
     deleteUserDetail(req.body.username);
     deleteUserContacts(req.body.username);
+
+    return res.json(true);
 }
 
 exports.deleteContact = function(req,res){

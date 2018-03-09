@@ -6,6 +6,9 @@
             <div class="row">
                 <h3>Contacts</h3>
             </div>
+            <div class="col-mid-2">
+                    <button type="submit" class ="btn btn-success" (click)="createContact()">Create Contact</button>
+            </div>   
             <div class="table-responsive">
                 <table class="table" *ngIf="contacts && contacts.length">
                     <thead>
@@ -13,13 +16,22 @@
                         <th>Last Name</th>
                         <th>Phone</th>
                         <th>Email</th>
+                        <th></th>
                     </thead>
                     <tbody>
                         <tr *ngFor="let contact of contacts">
-                            <td>{{contact.firstname}}</td>
+                            <td><a [routerLink]= "['/user/contact']"
+                                [queryParams] = "{username:user.username,
+                                                    firstname:contact.firstname,
+                                                    lastname:contact.lastname,
+                                                    phone:contact.phone,
+                                                    email:contact.email}"
+                                >{{contact.firstname}}</a></td>
                             <td>{{contact.lastname}}</td>
                             <td>{{contact.phone}}</td>
                             <td>{{contact.email}}</td>
+                            <td><button type="submit" class="btn btn-success btn-sm" (click)="deleteContact(contact)">Delete</button>
+                                <button type="submit" class="btn btn-success btn-sm" (click)="updateContact(contact)">Edit</button></td>
                         </tr>
                     </tbody>
                 </table>

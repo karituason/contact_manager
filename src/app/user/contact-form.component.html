@@ -1,0 +1,42 @@
+<div class = "container">
+        <div class = "panel">
+            <h1>{{heading}}</h1>
+        </div>
+        <div class="panel-body">
+            <form #form="ngForm" (submit)="submit(form)">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    {{contact.username}}
+                </div>       
+                <div class="form-group">
+                    <label for="firstname">First name:</label>
+                    <input type="text" placeholder="firstname"
+                        [(ngModel)]="contact.firstname"
+                        name="firstname" id="firstname"/>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last name:</label>
+                    <input type="text" placeholder="lastname"
+                        [(ngModel)]="contact.lastname"
+                        name="lastname" id="lastname"/>
+                </div>
+                <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="text" placeholder="phone"
+                            [(ngModel)]="contact.phone"
+                            name="phone" id="phone"/>
+                    </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" placeholder="email"
+                        [(ngModel)]="contact.email"
+                        name="email" id="email"/>
+                </div>
+
+                <div>
+                    <button class="btn btn-success" type="submit" (click)="cancel()">Cancel</button>
+                    <button class="btn btn-success" type="submit">{{btn_name}}</button>
+                </div>
+            </form>
+        </div>
+    </div>

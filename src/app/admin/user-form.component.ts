@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {RouterModule, Router, RouterLink} from '@angular/router';
+import {RouterModule, Router, RouterLink, ActivatedRoute} from '@angular/router';
 import { Http, Response, Request,RequestMethod, Headers} from '@angular/http';
 import { NgForm } from '@angular/forms';
 
@@ -20,34 +20,67 @@ export class UserFormComponent implements OnInit{
         lastname:"",
         numContacts:0
     }
-    update:boolean=true;
-    btn_name:string;
-    heading:string = "User"
+    btn_name:string = "Save";
+    heading:string = "Update User"
 
-    constructor(private _httpprovider:Httpprovider, private _userdetails:Userdetails, private _router: Router){
+    constructor(private _httpprovider:Httpprovider, private _userdetails:Userdetails, private _router: Router, private _route:ActivatedRoute){
 
     }
 
     ngOnInit(){
-        if (this.update){
-            this.heading = "Update User";
-            this.btn_name = "Save";
-        } else{
-            this.heading = "Create User";
-            this.btn_name = "Create";
-        }
+        this._route
+        .queryParams
+        .subscribe(params =>{
+            this.user.username = params['username'];
+        })
+
+        this._httpprovider
+        .httpReq('http://localhost:9001/admin/userdetail', 
+            'POST',
+            {username:this.user.username},
+            null)
+        .subscribe((data)=>{
+            this.user.firstname = data.firstname;
+            this.user.lastname = data.lastname;
+            this.user.numContacts = data.numContacts;
+        })
+
+        this._httpprovider
+        .httpReq('http://localhost:9001/admin/getUserLogin', 
+            'POST',
+            {username:this.user.username},
+            null)
+        .subscribe((data)=>{
+            this.user.password = data.password;
+            this.user.userType = data.userType;
+        })
     }
 
     cancel(){
-        
+        this._router.navigate(['/admin/user-detail'],
+        {queryParams:{username: this.user.username }})
     }
-
-    createUser(){
-
-    }
-
-    updateUser(){
-        
+    updateUser(form:NgForm){
+        console.log("in update user")
+        if(!form.invalid){
+            this._httpprovider
+                .httpReq('http://localhost:9001/admin/users/update', 
+                    'POST',
+                    {
+                        username: this.user.username,
+                        password: this.user.password,
+                        firstname: this.user.firstname,
+                        lastname: this.user.lastname
+                    },
+                    null)
+                .subscribe((data)=>{
+                    if (data){
+                        this._router.navigate(['/admin/user-detail'], 
+                        {queryParams:{username: this.user.username}})                    } else {
+                    
+                    }
+                })
+        }
     }
 
 }

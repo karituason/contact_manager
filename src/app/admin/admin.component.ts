@@ -41,16 +41,34 @@ export class AdminComponent implements OnInit{
     }
 
     createUser():void{
-        this._router.navigate(['/admin/user-form'],{queryParams: {update:false}});
+        this._router.navigate(['/admin/create-user'],
+            {queryParams:{
+                username: "",
+                firstname: "",
+                lastname: ""
+            }});
         console.log(this._userdetail)
     }
 
-    deleteUser(username:string):void{
-        this._httpprovider.httpReq('http://localhost:9001/admin/users/delete', 'POST', {username: username}, null);
+    deleteUser(user:string):void{
+        console.log("delete user" + user);
+        this._httpprovider.httpReq('http://localhost:9001/admin/users/delete', 'POST', {username: user}, null)
+        .subscribe(data => {console.log(data);
+            this._httpprovider.httpReq('http://localhost:9001/admin/users', 'GET', {}, null)
+                .subscribe((users) => {
+                    this.users = users;
+                },
+                (error) => {
+                    this.errorMessage=<any>error;
+                }
+            );
+            this._router.navigate(['/admin/refresh'])
+        });
+        
     }
 
     updateUser(username:string):void{
-        this._router.navigate(['/admin/user-form'],{queryParams: {update:true, username:username}});
+        this._router.navigate(['/admin/user-form'],{queryParams: { username:username}});
     }
     
 }

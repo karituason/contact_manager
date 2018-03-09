@@ -66,11 +66,14 @@ export class UserDetailComponent implements OnInit{
 
     editUser(){
         this._router.navigate(['/admin/user-form'],
-            {queryParams: {update:true, username: this.user.username}});
+            {queryParams: {username: this.user.username}});
     }
 
     deleteUser(){
-        this._httpprovider.httpReq('http://localhost:9001/admin/users/delete', 'POST', {username: this.user.username}, null);
+        this._httpprovider.httpReq('http://localhost:9001/admin/users/delete', 'POST', {username: this.user.username}, null)
+                .subscribe((data) =>{
+                    this._router.navigate(['/admin']);
+                });
     }
 
     back(){

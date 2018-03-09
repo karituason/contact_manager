@@ -27,8 +27,8 @@
                         <td>{{user.firstname}}</td>
                         <td>{{user.lastname}}</td>
                         <td>{{user.numContacts}}</td>
-                        <td><button type="submit" class="btn btn-success btn-sm" (click)="deleteUser()">Delete</button>
-                            <button type="submit" class="btn btn-success btn-sm" (click)="updateUser()">Edit</button></td>
+                        <td><button type="submit" class="btn btn-success btn-sm" (click)="deleteUser(user.username)">Delete</button>
+                            <button type="submit" class="btn btn-success btn-sm" (click)="updateUser(user.username)">Edit</button></td>
                     </tr>
                 </tbody>
             </table>

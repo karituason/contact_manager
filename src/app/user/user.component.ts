@@ -47,4 +47,29 @@ export class UserComponent implements OnInit{
 
         }
     }
+
+    createContact(){
+        this._router.navigate(['/user/create-contact'])
+    }
+
+    deleteContact(contact:Contact){
+        this._httpprovider.httpReq('http://localhost:9100/user/contact/delete','POST',{
+            username:contact.username,
+            firstname: contact.firstname,
+            lastname: contact.lastname,
+            phone: contact.phone,
+            email: contact.email,
+        },null)
+    }
+
+    updateContact(contact:Contact){
+        this._router.navigate(['/user/contact-form'], 
+            {queryParams: {
+                username: contact.username,
+                firstname: contact.firstname,
+                lastname:contact.lastname,
+                phone: contact.phone,
+                email: contact.email
+            }})
+    }
 }

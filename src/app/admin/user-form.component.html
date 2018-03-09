@@ -3,19 +3,25 @@
         <h1>{{heading}}</h1>
     </div>
     <div class="panel-body">
-        <form #form="ngForm" (submit)="submit(form)">
+        <form #form="ngForm" (submit)="updateUser(form)">
             <div class="form-group">
-                <label for="username">Username:</label>
-                <input *ngIf="!update" type="text" placeholder="username"
-                    [(ngModel)]="user.username"
-                    name="username" id="username"/>
+                <div class="row">
+                    <label for="username">Username:</label>
+                    {{user.username}}
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" placeholder="password"
-                    [(ngModel)]="user.password"
-                    name="password" id="password"/>
-            </div>
+            <div class="form-group" [class.has-error]="(password.dirty||password.touched) && password.invalid">
+                    <label for="password" class="control-label">Password:</label>
+                    <input type="password" placeholder="password"
+                        [(ngModel)]="user.password"
+                        required
+                        minlength="8"
+                        #password = "ngModel"
+                        name="password" id="password"/>
+                        <div class="alert alert-danger" *ngIf="(password.dirty||password.touched)&&password.invalid">
+                                Password is required.
+                        </div>
+                </div>
             <div class="form-group">
                 <label for="firstname">First name:</label>
                 <input type="text" placeholder="firstname"
@@ -29,7 +35,7 @@
                     name="lastname" id="lastname"/>
             </div>
             <div>
-                <button class="btn btn-success" type="submit">Cancel</button>
+                <button class="btn btn-success" type="submit" (click)="cancel()">Cancel</button>
                 <button class="btn btn-success" type="submit">{{btn_name}}</button>
             </div>
         </form>

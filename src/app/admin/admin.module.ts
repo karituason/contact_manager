@@ -4,8 +4,10 @@ import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 
 import { AdminComponent } from './admin.component';
-import { UserDetailComponent } from '../user_detail/user-detail.component';
+import { UserDetailComponent } from './user-detail.component';
 import { UserFormComponent } from './user-form.component';
+import { CreateUserFormComponent } from './create-user-form.component';
+import { AdminRedirectComponent } from './admin-redirect.component';
 
 @NgModule({
     imports:[
@@ -14,13 +16,17 @@ import { UserFormComponent } from './user-form.component';
         RouterModule.forChild([
             {path:'admin', component:AdminComponent},
             {path:'admin/user-detail',component:UserDetailComponent},
-            {path:'admin/user-form',component:UserFormComponent}
+            {path:'admin/user-form',component:UserFormComponent},
+            {path:'admin/create-user',component:CreateUserFormComponent},
+            {path:'admin/refresh', component:AdminRedirectComponent}
         ])
     ],
     declarations:[
         AdminComponent,
         UserDetailComponent,
-        UserFormComponent
+        UserFormComponent,
+        CreateUserFormComponent,
+        AdminRedirectComponent
     ],
     providers:[]
 })

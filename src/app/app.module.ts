@@ -7,13 +7,12 @@ import {RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { UserComponent } from './user/user.component';
 import { APIService } from './service/api.service';
-import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { NotFoundComponent } from './shared/notFound.component';
 import { AdminModule } from './admin/admin.module';
 import { Httpprovider } from './service/httpprovider.service';
 import { Userdetails } from './service/userdetails';
+import { UserModule } from './user/user.module';
 
 
 
@@ -21,19 +20,16 @@ import { Userdetails } from './service/userdetails';
   declarations: [
     AppComponent,
     LoginComponent,
-    UserComponent,
-    ContactDetailComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     AdminModule,
+    UserModule,
     RouterModule.forRoot([
       {path:'login',component:LoginComponent},
-      {path:'user', component:UserComponent},
-      {path:'contact-detail', component:ContactDetailComponent},
       {path:'', redirectTo:'login',pathMatch:'full'},
       {path:'**', component:NotFoundComponent}
     ])

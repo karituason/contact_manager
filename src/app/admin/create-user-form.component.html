@@ -1,0 +1,55 @@
+<div class = "container">
+        <div class = "panel">
+            <h1>{{heading}}</h1>
+        </div>
+        <div class="panel-body">
+            <form #form="ngForm" (submit)="createUser(form)">
+                <div class="form-group" [class.has-error]="(username.dirty||username.touched) && username.invalid">
+                    <label for="username" class="control-label">Username:</label>
+                    <input type="text" placeholder="username"
+                        [(ngModel)]="user.username"
+                        required
+                        pattern="^[a-zA-Z0-9_-]{3,15}$"
+                        maxlength="15"
+                        #username = "ngModel"
+                        name="username" id="username"/>
+                        <div class="alert alert-danger" *ngIf="(username.dirty||username.touched)&&username.invalid">
+                                Username is required and must be a minimum 3 characters long.
+                        </div>
+                        <div class="alert alert-danger" *ngIf="exists">
+                                Username {{invalidUser}} is already in use.
+                        </div>
+                </div>
+                <div class="form-group" [class.has-error]="(password.dirty||password.touched) && password.invalid">
+                    <label for="password" class="control-label">Password:</label>
+                    <input type="password" placeholder="password"
+                        [(ngModel)]="user.password"
+                        required
+                        minlength="8"
+                        #password = "ngModel"
+                        name="password" id="password"/>
+                        <div class="alert alert-danger" *ngIf="(password.dirty||password.touched)&&password.invalid">
+                                Password is required.
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstname">First name:</label>
+                    <input type="text" placeholder="firstname"
+                        [(ngModel)]="user.firstname"
+                        name="firstname" id="firstname"/>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last name:</label>
+                    <input type="text" placeholder="lastname"
+                        [(ngModel)]="user.lastname"
+                        name="lastname" id="lastname"/>
+                </div>
+                <div>
+                    <button class="btn btn-success" type="submit" (click)="cancel()">Cancel</button>
+                    <button class="btn btn-success" type="submit">{{btn_name}}</button>
+                </div>
+                Angular:{{form.value|json}} <br/>
+                User:{{user|json}}
+            </form>
+        </div>
+    </div>
