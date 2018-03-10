@@ -7,7 +7,6 @@ import { AdminComponent } from './admin.component';
 import { UserDetailComponent } from './user-detail.component';
 import { UserFormComponent } from './user-form.component';
 import { CreateUserFormComponent } from './create-user-form.component';
-import { AdminRedirectComponent } from './admin-redirect.component';
 
 @NgModule({
     imports:[
@@ -18,7 +17,6 @@ import { AdminRedirectComponent } from './admin-redirect.component';
             {path:'admin/user-detail',component:UserDetailComponent},
             {path:'admin/user-form',component:UserFormComponent},
             {path:'admin/create-user',component:CreateUserFormComponent},
-            {path:'admin/refresh', component:AdminRedirectComponent}
         ])
     ],
     declarations:[
@@ -26,7 +24,6 @@ import { AdminRedirectComponent } from './admin-redirect.component';
         UserDetailComponent,
         UserFormComponent,
         CreateUserFormComponent,
-        AdminRedirectComponent
     ],
     providers:[]
 })

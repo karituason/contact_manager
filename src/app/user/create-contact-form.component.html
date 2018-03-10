@@ -4,7 +4,7 @@
         </div>
         <div class="panel-body">
             <form #form="ngForm" (submit)="submit(form)">
-                <div class="form-group">
+                <div class="form-group" >
                     <label for="username">Username:</label>
                     {{contact.username}}
                 </div>       
@@ -20,23 +20,38 @@
                         [(ngModel)]="contact.lastname"
                         name="lastname" id="lastname"/>
                 </div>
-                <div class="form-group">
-                        <label for="phone">Phone:</label>
+                <div class="form-group" [class.has-error]="(phone.dirty||phone.touched)&&phone.invalid">
+                        <label for="phone" class="control-label">Phone:</label>
                         <input type="text" placeholder="phone"
                             [(ngModel)]="contact.phone"
+                            pattern="[0-9]{10}"
+                            #phone = "ngModel"
                             name="phone" id="phone"/>
+                            <div class="alert alert-danger" *ngIf="(phone.dirty||phone.touched)&&phone.invalid">
+                                    Enter valid number
+                            </div>
                     </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
+                <div class="form-group" [class.has-error]="(email.dirty||email.touched) && email.invalid">
+                    <label for="email" class="control-label">Email:</label>
                     <input type="text" placeholder="email"
                         [(ngModel)]="contact.email"
+                        pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                        #email = "ngModel"
                         name="email" id="email"/>
+                        <div class="alert alert-danger" *ngIf="(email.dirty||email.touched)&&email.invalid">
+                                Enter valid email
+                        </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="notValid">
+                    At least one field must be filled
                 </div>
 
                 <div>
                     <button class="btn btn-success" type="submit" (click)="cancel()">Cancel</button>
                     <button class="btn btn-success" type="submit">{{btn_name}}</button>
                 </div>
+                Angular:{{form.value|json}} <br/>
+                User:{{contact|json}}
             </form>
         </div>
     </div>

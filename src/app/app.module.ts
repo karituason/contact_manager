@@ -13,6 +13,7 @@ import { AdminModule } from './admin/admin.module';
 import { Httpprovider } from './service/httpprovider.service';
 import { Userdetails } from './service/userdetails';
 import { UserModule } from './user/user.module';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -21,6 +22,7 @@ import { UserModule } from './user/user.module';
     AppComponent,
     LoginComponent,
     NotFoundComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -29,8 +31,9 @@ import { UserModule } from './user/user.module';
     AdminModule,
     UserModule,
     RouterModule.forRoot([
+      {path:'home',component:HomeComponent},
       {path:'login',component:LoginComponent},
-      {path:'', redirectTo:'login',pathMatch:'full'},
+      {path:'', redirectTo:'home',pathMatch:'full'},
       {path:'**', component:NotFoundComponent}
     ])
   ],

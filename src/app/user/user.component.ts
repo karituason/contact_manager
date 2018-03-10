@@ -29,6 +29,7 @@ export class UserComponent implements OnInit{
             this._httpprovider.httpReq('http://localhost:9001/admin/userdetail', 'POST', {username:this._userdetail.username}, null)
                 .subscribe((users) => {
                     this.user = users;
+                    this.user.username = this._userdetail.username;
                 },
                 (error) => {
                     this.errorMessage=<any>error;
@@ -36,9 +37,8 @@ export class UserComponent implements OnInit{
             );
             this._httpprovider.httpReq('http://localhost:9001/user/contacts', 'POST', {username:this._userdetail.username}, null)
                 .subscribe((contacts) => {
-                    console.log(contacts);
+                    
                     this.contacts = contacts
-                    console.log(contacts)
                 },
                 (error) => {
                     this.errorMessage=<any>error;
@@ -48,18 +48,41 @@ export class UserComponent implements OnInit{
         }
     }
 
+    logout(){
+        this._router.navigate(['/login']);
+    }
+
     createContact(){
         this._router.navigate(['/user/create-contact'])
     }
 
-    deleteContact(contact:Contact){
-        this._httpprovider.httpReq('http://localhost:9100/user/contact/delete','POST',{
-            username:contact.username,
-            firstname: contact.firstname,
-            lastname: contact.lastname,
-            phone: contact.phone,
-            email: contact.email,
-        },null)
+    deleteContact(fn:string, ln:string, p:Number, e:string){
+        console.log("deleting: "+ this._userdetail.username + " "+ fn+ " "+ln+ " "+p+ " "+e);
+        this._httpprovider.httpReq('http://localhost:9001/user/contact/delete','POST',{
+            username: this._userdetail.username,
+            firstname: fn,
+            lastname: ln,
+            phone: p,
+            email: e,
+        },null).subscribe((data)=>{
+            this._httpprovider.httpReq('http://localhost:9001/admin/userdetail', 'POST', {username:this._userdetail.username}, null)
+                .subscribe((users) => {
+                    this.user = users;
+                },
+                (error) => {
+                    this.errorMessage=<any>error;
+                }
+            );
+            this._httpprovider.httpReq('http://localhost:9001/user/contacts', 'POST', {username:this._userdetail.username}, null)
+                .subscribe((contacts) => {
+                    this.contacts = contacts
+                    
+                },
+                (error) => {
+                    this.errorMessage=<any>error;
+                }
+            );
+        })
     }
 
     updateContact(contact:Contact){

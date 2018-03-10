@@ -28,6 +28,11 @@ export class UserFormComponent implements OnInit{
     }
 
     ngOnInit(){
+        if(!this._userdetails.isLoggedIn()){
+            this._router.navigate(['/login']);
+        } else if(this._userdetails.getUserType() === "user"){
+            this._router.navigate(['/user']);
+        }
         this._route
         .queryParams
         .subscribe(params =>{

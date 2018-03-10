@@ -62,7 +62,7 @@ export class AdminComponent implements OnInit{
                     this.errorMessage=<any>error;
                 }
             );
-            this._router.navigate(['/admin/refresh'])
+            //this._router.navigate(['/admin/refresh'])
         });
         
     }

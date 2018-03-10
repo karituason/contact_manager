@@ -1,5 +1,6 @@
 <div class = "container">
         <div class = "panel-heading">
+            <button type="submit" class ="btn btn-success" (click)="logout()">Logout</button>
             <h1>Hello User</h1>
         </div>
         <div class="panel-body">
@@ -21,16 +22,16 @@
                     <tbody>
                         <tr *ngFor="let contact of contacts">
                             <td><a [routerLink]= "['/user/contact']"
-                                [queryParams] = "{username:user.username,
-                                                    firstname:contact.firstname,
-                                                    lastname:contact.lastname,
-                                                    phone:contact.phone,
-                                                    email:contact.email}"
+                                [queryParams] = "{username:contact.username,
+                                                firstname:contact.firstname,
+                                                lastname:contact.lastname,
+                                                phone:contact.phone,
+                                                email:contact.email}"
                                 >{{contact.firstname}}</a></td>
                             <td>{{contact.lastname}}</td>
                             <td>{{contact.phone}}</td>
                             <td>{{contact.email}}</td>
-                            <td><button type="submit" class="btn btn-success btn-sm" (click)="deleteContact(contact)">Delete</button>
+                            <td><button type="submit" class="btn btn-success btn-sm" (click)="deleteContact(contact.firstname, contact.lastname, contact.phone, contact.email)">Delete</button>
                                 <button type="submit" class="btn btn-success btn-sm" (click)="updateContact(contact)">Edit</button></td>
                         </tr>
                     </tbody>

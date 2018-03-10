@@ -25,6 +25,11 @@ export class ContactDetailComponent implements OnInit{
     }
 
     ngOnInit():void{
+        if(!this._userdetails.isLoggedIn()){
+            this._router.navigate(['/login']);
+        } else if(this._userdetails.getUserType() === "admin"){
+            this._router.navigate(['/admin']);
+        }
         this._route
             .queryParams
             .subscribe(params=>{
@@ -34,6 +39,7 @@ export class ContactDetailComponent implements OnInit{
                 this.contact.phone = params['phone'];
                 this.contact.email = params['email'];
             })
+        console.log(this.contact);
     }
 
     back(){
@@ -45,13 +51,17 @@ export class ContactDetailComponent implements OnInit{
     }
 
     deleteContact(){
-        this._httpprovider.httpReq('http://localhost:9100/user/contact/delete','POST',{
-            username:this.contact.username,
+        console.log("deleting: " + this.contact.firstname);
+        this._httpprovider.httpReq('http://localhost:9001/user/contact/delete','POST',{
+            username: this.contact.username,
             firstname: this.contact.firstname,
             lastname: this.contact.lastname,
             phone: this.contact.phone,
-            email:this.contact.email,
-        },null)
+            email: this.contact.email,
+        },null).subscribe((data)=>{
+            this._router.navigate(['/user']);
+        })
+        
     }
 
     editContact(){
